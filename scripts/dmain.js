@@ -1,9 +1,41 @@
 
 
-
-
 //아래 다이어리 수정 버튼들
 document.addEventListener('DOMContentLoaded', function() {
+    function toggleMenu() {
+        const menu = document.getElementById('hamMenu');
+        const ham = document.getElementById('ham');
+        menu.classList.toggle('show');
+        if (menu.classList.contains('show')) {
+            menu.style.right = '0px';
+            ham.style.display = 'none';
+        } else {
+            menu.style.right = '-250px';
+            ham.style.display = 'block';
+        }
+    }
+
+    const hamButton = document.getElementById('ham');
+    if (hamButton) {
+        hamButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            toggleMenu();
+        });
+    }
+
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('hamMenu');
+        if (menu && !menu.contains(event.target) && menu.classList.contains('show')) {
+            toggleMenu();
+        }
+    });
+
+    const hamMenu = document.getElementById('hamMenu');
+    if (hamMenu) {
+        hamMenu.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    }
     document.querySelector('.downpart').addEventListener('click', function(event) {
         const svg = event.target.closest('svg');
         const palletecont = document.querySelector('.palletecont');

@@ -333,17 +333,11 @@ body {
     justify-content: center;
     align-items: center;
     left: 29px;
-    position: relative;
+    margin-left: 0;
     width: 80px; /* Adjust based on your logo size */
     height: 30px; /* Adjust based on your logo size */
 }
 
-.letter {
-    position: absolute;
-    font-size: 25px;
-    font-family: Friem, sans-serif;
-    font-weight: 400;
-}
 
 
 .diary-title {
