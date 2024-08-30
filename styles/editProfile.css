@@ -58,7 +58,7 @@
   cursor: pointer;
 }
 #div2:hover{
-    font-family: "suit-black";
+    font-family: "suit";
 }
 #editName {
   color: #000000;
@@ -74,7 +74,7 @@
   cursor: pointer;
 }
 #editName:hover{
-    font-family: "suit-black";
+  font-family: "suit";
 }
 #line-1 {
   margin-top: -1px;
@@ -116,7 +116,7 @@
   cursor: pointer;
 }
 #div4:hover{
-    font-family: "suit-black";
+  font-family: "suit";
 }
 #group-28 {
   position: absolute;

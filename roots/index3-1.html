@@ -18,7 +18,7 @@
             <div class="userName">냥녜</div>
             <div class="div3">님! 반가워요.</div>
         </div>
-        <div class="profile">
+        <div class="profile" id="changepf" style="cursor: pointer;">
             <div class="rectangle-17"></div>
             <div class="div5">내 프로필 보기</div>
         </div>
@@ -117,19 +117,18 @@
     </div>
 
     <script>
-      function toggleMenu() {
-            const menu = document.getElementById('hamMenu');
-            const ham = document.getElementById('ham');
-            menu.classList.toggle('show');
-            
-            if (menu.classList.contains('show')) {
-              menu.style.right = '0px';
-              ham.style.display = 'none';
-            } else {
-              menu.style.right = '-250px';
-              ham.style.display = 'block';
-            }
-          }
+       function toggleMenu() {
+        const menu = document.getElementById('hamMenu');
+        const ham = document.getElementById('ham');
+        menu.classList.toggle('show');
+        if (menu.classList.contains('show')) {
+            menu.style.right = '0px';
+            ham.style.visibility = 'hidden';
+        } else {
+            menu.style.right = '-250px';
+            ham.style.visibility = 'visible';
+        }
+    }
 
           document.getElementById('ham').addEventListener('click', function(event) {
             event.stopPropagation();
@@ -151,6 +150,10 @@
         
         document.getElementById('diaryButton').addEventListener('click', function() {
             window.location.href = 'index.html';
+        });
+        
+        document.getElementById('changepf').addEventListener('click', function() {
+            window.location.href = 'editProfile.html';
         });
 
     </script>

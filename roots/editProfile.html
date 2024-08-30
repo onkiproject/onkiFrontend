@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="light">
-        <div id="frame-6">
+        <div id="frame-6" style="cursor: pointer;">
           <div id="div">&lt;</div>
         </div>
         <div id="div2">내 컬러 바꾸기</div>
@@ -84,6 +84,12 @@
             modal.style.display = "none";
         }
         }
+
+        document.getElementById('frame-6').addEventListener('click', function() {
+            window.location.href = 'index3-1.html';
+        });
+
+        
       </script>
 </body>
 </html>

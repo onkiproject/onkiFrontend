@@ -332,8 +332,8 @@ body {
 .container {
     justify-content: center;
     align-items: center;
-    left: 29px;
-    margin-left: 0;
+    
+    
     width: 80px; /* Adjust based on your logo size */
     height: 30px; /* Adjust based on your logo size */
 }

@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
         menu.classList.toggle('show');
         if (menu.classList.contains('show')) {
             menu.style.right = '0px';
-            ham.style.display = 'none';
+            ham.style.visibility = 'hidden';
         } else {
             menu.style.right = '-250px';
-            ham.style.display = 'block';
+            ham.style.visibility = 'visible';
         }
     }
 
