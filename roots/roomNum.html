@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>roomNum</title>
+    <link rel="stylesheet" href="../styles/roomNum.css">
+    <link rel="stylesheet" href="vars.css">
+</head>
+<body>
+    <div class="light">
+        <div class="logo">
+            <img src="../images/onki_logo.svg" alt="logo" width="177px" height="77px">
+        </div>
+        <div class="rectangle-2" onclick="toSelectProfile()"></div>
+        <div class="div">일기 쓰기</div>
+        <div class="div2">
+            <span>
+                <span class="mapoFontTxt1">
+                    일기장을 만들고 싶다면,
+                    <br>
+                </span>
+                <a class="mapoFontTxt2">일기장 만들기</a>
+            </span>
+        </div>
+        <img class="door" src="../images/door_front.svg"/>
+        <input class="roomNumInput" type="text" placeholder="방 코드를 입력해주세요.">
+        <img class="key" src="../images/key.svg"/>
+        <input class="pwInput" type="password" placeholder="비밀번호를 입력해주세요.">
+    </div>
+
+    <script>
+      function toSelectProfile(){
+        window.location.href ="selectProfile.html";
+      }
+    </script>
+</body>
+</html>

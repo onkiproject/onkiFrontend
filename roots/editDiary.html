@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="editDiary.css">
+    <link rel="stylesheet" href="../styles/editDiary.css">
+    <title>edit diary</title>
+</head>
+<body>
+    <div class="light">
+        <div id="frame-6" style="cursor: pointer;">
+          <div id="div">&lt;</div>
+        </div>
+        <div id="editName">다이어리 이름 바꾸기</div>
+        <div id="line-1"></div>
+        <div id="div3">다이어리 초기화하기</div>
+        <div id="line-2"></div>
+        <div id="div4">다이어리 비밀번호 변경하기</div>
+        <img id="profilePic" src="../images/프사.png"></img>
+        <img id="picChange" src="../images/picChange.svg" style="cursor: pointer;"></img>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" />
+        <div id="diaryName">고오양이🐈</div>
+        <div id="diaryDate">24.06.13 생성</div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>새 이름을 입력해 주세요</p>
+                <input id="newName"/>
+                <button id="ok" onclick="ok()">저장</button>
+            </div>
+        </div>
+
+        <script>
+            //경고창
+            function ok(){
+                //이름 바꾸기
+                const diaryName = document.getElementById('diaryName');
+                const newName = document.getElementById('newName').value;
+                diaryName.textContent = newName;
+                //이름 바뀐 것 알려 주기
+                alert("이름이 변경되었습니다.")
+                modal.style.display = "none";
+            }
+
+            //모달 커스텀
+            var modal = document.getElementById("myModal");
+            var editName = document.getElementById("editName");
+            var close = document.getElementsByClassName("close")[0];
+
+            editName.onclick = function() {
+            modal.style.display = "block";
+            }
+
+            close.onclick = function() {
+            modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            //사진 바꾸기
+            const picChange = document.getElementById('picChange');
+            const fileInput = document.getElementById('fileInput');
+            const profilePic = document.getElementById('profilePic')
+
+            picChange.onclick = function() {
+                fileInput.click(); // 파일 선택 다이얼로그 열기
+            };
+
+            fileInput.onchange = function(event) {
+                const files = event.target.files;
+                profilePic.innerHTML = ''; // 기존 갤러리 초기화
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            profilePic.src = e.target.result;
+                            profilePic.style.borderRadius = '50%';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            };
+            document.getElementById('frame-6').addEventListener('click', function() {
+            window.location.href = 'index3-1.html';
+        });
+
+            </script>
+      </div>
+</body>
+</html>

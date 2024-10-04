@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>select profile</title>
+  <link rel="stylesheet" href="vars.css">
+  <link rel="stylesheet" href="../styles/selectProfile.css">
+</head>
+<body>
+  <div class="light">
+    <div class="logo">
+      <img src="../images/onki_logo.svg" alt="logo" width="177px" height="77px">
+    </div>
+    <div style="cursor: pointer;">
+      <img class="user-1-pic" src="../images/profilePic1.svg" />
+      <div class="user-1-name">연주</div>
+      <img src="../images/profileChecked.png" class="profileChecked1" style="display: none;">
+    </div>
+    <div style="cursor: pointer;">
+      <img class="user-2-pic" src="../images/profilePic2.svg" />
+      <div class="user-2-name">유빈</div>
+      <img src="../images/profileChecked.png" class="profileChecked2" style="display: none;">
+    </div>
+    <div style="cursor: pointer;">
+      <img class="user-3-pic" src="../images/profilePic4.svg" />
+      <div class="user-3-name">수민</div>
+      <img src="../images/profileChecked.png" class="profileChecked3" style="display: none;">
+    </div>
+    <div style="cursor: pointer;">
+      <img class="user-4-pic" src="../images/profilePic3.svg" />
+      <div class="user-4-name">예원</div>
+      <img src="../images/profileChecked.png" class="profileChecked4" style="display: none;">
+    </div>
+    <button class="ok">확인</button>
+  </div>
+
+  <script>
+    const img1 = document.querySelector('.profileChecked1');
+    const profile1 = document.querySelector('.user-1-pic');
+    const img2 = document.querySelector('.profileChecked2');
+    const profile2 = document.querySelector('.user-2-pic');
+    const img3 = document.querySelector('.profileChecked3');
+    const profile3 = document.querySelector('.user-3-pic');
+    const img4 = document.querySelector('.profileChecked4');
+    const profile4 = document.querySelector('.user-4-pic');
+    const ok = document.querySelector('.ok');
+
+    ok.addEventListener('click', function(){
+      if(img1.style.display === 'none' && img2.style.display === 'none' && img3.style.display === 'none' && img4.style.display === 'none'){
+        alert('프로필을 선택해 주세요!')
+      }
+      else{
+        window.location.href = 'index3-1.html';
+      }
+    });
+
+    profile1.addEventListener('click', function() {
+      img1.style.display = 'block';
+      img2.style.display = 'none';
+      img3.style.display = 'none';
+      img4.style.display = 'none';
+    });
+
+    profile2.addEventListener('click', function() {
+      img2.style.display = 'block';
+      img1.style.display = 'none';
+      img3.style.display = 'none';
+      img4.style.display = 'none';
+    });
+
+    profile3.addEventListener('click', function() {
+      img3.style.display = 'block';
+      img1.style.display = 'none';
+      img2.style.display = 'none';
+      img4.style.display = 'none';
+    });
+
+    profile4.addEventListener('click', function() {
+      img4.style.display = 'block';
+      img1.style.display = 'none';
+      img2.style.display = 'none';
+      img3.style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>

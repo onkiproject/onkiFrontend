@@ -1,0 +1,573 @@
+@font-face {
+  font-family: 'Friem-Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Friem Regular'), url('friem-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'MapoBackpacking-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoBackpackingA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css");
+
+@font-face {
+  font-family: 'SokchoBadaDotum';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaDotum.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@media screen and (max-width: 430px) {
+ 
+}
+
+/*도전*/
+body {
+  width: 100%;
+  max-width: 100vw; /* 화면 너비를 넘지 않도록 설정 */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #FFF8EF;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/*햄버거 메뉴*/
+.hammenu-container {
+  position: relative;
+}
+
+.menu-button {
+  font-size: 24px;
+}
+
+.hamMenu {
+  position: fixed;
+  top: 0;
+  right: -250px; /* 메뉴를 화면 밖으로 위치시킴 */
+  width: 250px;
+  height: 100vh; /* 화면의 전체 높이 */
+  background-color: #fff8ef;
+  border-radius: 20px 0px 0px 20px;
+  overflow: auto; 
+  transition: right 0.3s ease;
+  box-shadow: -13px 0px 13px 0px rgba(0, 0, 0, 0.09), -28px 0px 17px 0px rgba(0, 0, 0, 0.05);
+}
+
+.frame-16,
+.frame-16 * {
+box-sizing: border-box;
+}
+.frame-16 {
+border-radius: 20px 0px 0px 20px;
+padding: 228px 19px 228px 19px;
+display: flex;
+flex-direction: row;
+gap: 10px;
+align-items: center;
+justify-content: flex-start;
+
+}
+.div {
+width: 182px;
+height: 55px;
+position: static;
+}
+.ellipse-8 {
+background: var(--blue, #4535ff);
+border-radius: 50%;
+width: 55px;
+height: 55px;
+position: absolute;
+left: 29px;
+top: 228.5px;
+}
+.userName {
+color: #000000;
+text-align: left;
+font-family: "SokchoBadaDotum", sans-serif;
+font-size: 20px;
+letter-spacing: -0.03em;
+font-weight: 400;
+position: absolute;
+left: 101px;
+top: 246.5px;
+}
+.div3 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 13px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 145px;
+top: 250.5px;
+}
+.profile {
+width: 110px;
+height: 28px;
+position: static;
+}
+.rectangle-17 {
+background: #4535ff;
+border-radius: 20px;
+width: 110px;
+height: 28px;
+position: absolute;
+left: 72px;
+top: 301.5px;
+}
+.div5 {
+color: #ffffff;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 13px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 85px;
+top: 307.5px;
+}
+.line-6 {
+margin-top: -1px;
+border-style: solid;
+border-color: #d9d9d9;
+border-width: 1px 0 0 0;
+width: 211px;
+height: 0px;
+position: absolute;
+left: 19px;
+top: 588.5px;
+}
+.menu5 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 16px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 29px;
+top: 603.5px;
+}
+.menu4 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 16px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 29px;
+top: 553.5px;
+}
+.line-7 {
+margin-top: -1px;
+border-style: solid;
+border-color: #d9d9d9;
+border-width: 1px 0 0 0;
+width: 211px;
+height: 0px;
+position: absolute;
+left: 19px;
+top: 538.5px;
+}
+.menu3 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 16px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 29px;
+top: 503.5px;
+}
+.line-8 {
+margin-top: -1px;
+border-style: solid;
+border-color: #d9d9d9;
+border-width: 1px 0 0 0;
+width: 211px;
+height: 0px;
+position: absolute;
+left: 19px;
+top: 488.5px;
+}
+.toggle {
+width: 192px;
+height: 23px;
+position: static;
+}
+.menu2 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 16px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 29px;
+top: 453.5px;
+}
+.line-9 {
+margin-top: -1px;
+border-style: solid;
+border-color: #d9d9d9;
+border-width: 1px 0 0 0;
+width: 211px;
+height: 0px;
+position: absolute;
+left: 19px;
+top: 438.5px;
+}
+.div11 {
+width: 190px;
+height: 53px;
+position: static;
+}
+.div12 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 16px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 29px;
+top: 370.5px;
+}
+.div13 {
+color: #000000;
+text-align: left;
+font-family: "SuitVariable-Medium", sans-serif;
+font-size: 12px;
+letter-spacing: -0.03em;
+font-weight: 500;
+position: absolute;
+left: 29px;
+top: 393.5px;
+}
+.div14 {
+color: #000000;
+text-align: center;
+font-family: "SuitVariable-Bold", sans-serif;
+font-size: 15px;
+letter-spacing: -0.03em;
+font-weight: 700;
+position: absolute;
+left: 209px;
+top: 371.5px;
+}
+
+
+/* 메뉴가 보일 때 적용되는 클래스 */
+.hamMenu.show {
+  right: 0; /* 화면 안으로 이동 */
+}
+
+/*햄버거 끝*/
+
+
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.uppart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  height: 10vh;
+}
+
+
+
+
+
+
+.backbt {
+  
+  position: relative;
+  left: 31px;
+
+  
+}
+
+
+.logo-container {
+  
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  
+}
+
+
+
+
+.menu-container {
+  
+  margin-right: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+  
+  
+  width: 80px; /* Adjust based on your logo size */
+  height: 30px; /* Adjust based on your logo size */
+}
+
+
+
+.diary-title {
+  
+  font-family: 'SokchoBadaDotum';
+  color: var(--Green, #229C5A);
+  font-size: 25px;
+  font-style: normal;
+  
+  line-height: normal;
+  letter-spacing: 1px;
+
+  padding-top: 100px;
+  
+  padding-left: 95px;
+  width: 100%;
+}
+
+.title-main {
+  color: #229C5A;
+  font-size: 25px;
+  
+}
+
+.title-sub {
+  color: black;
+  font-size: 15px;
+ 
+  
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 1px;
+}
+
+.diarypart {
+  display: flex;
+  width: 350px;
+  height: 228px;  
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #E2E2E2;
+  box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.10);
+  margin: 0 ;
+}
+
+
+
+.diarybt{
+  width: 6.5px;
+  height: 14px;
+  flex-shrink: 0;
+
+  padding: 5px;
+  padding-top: 106px;
+  margin-right: 0px;
+}
+
+.diarybbt{
+  width: 6.5px;
+  height: 14px;
+  flex-shrink: 0;
+
+  padding: 156px;
+  padding-top: 106px;
+  
+}
+
+.diaryline{
+  width: 2px;
+  height: 204px;
+  flex-shrink: 0;
+  
+  background-color: #C2C2C2; /* color 대신 background-color 사용 */
+ 
+
+  margin: 13px 13px; /* 위아래 여백 추가 */
+  
+  margin-left: 160px;
+  
+  margin-right: 0px;
+  
+  }
+
+  .notice-container {
+      width: 100%;
+      text-align: center;
+      margin-top: 18px;
+      margin-bottom: 0px;
+  }
+  
+.star-notice {
+  text-align: center;
+  color: black;
+  font-size: 11px;
+  font-family: 'SUIT-Regular', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.33px;
+  
+  
+}
+/* 팔레트 뜨게 하는거*/
+.palletecont
+{
+  width: 100%;
+  
+  margin-top: 526px;
+  position: absolute;
+  
+  justify-content: center;
+  display: none;
+  
+  
+}
+
+#palette span {
+  cursor: pointer;
+  
+  display: inline-block;
+  
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  
+  margin-top: 40px;
+}
+
+.strokecont {
+  width: 100%;
+  
+  flex-direction: row; /* 명시적으로 가로 방향 설정 */
+  margin-top: 526px;
+  display: none;
+  position: absolute;
+  gap: 10px; /* SVG 요소 사이의 간격 설정 */
+  justify-content: center;
+}
+.strokecont svg{
+  cursor: pointer;
+}
+
+#textinput{
+
+width: 100%;
+display: none;
+background-color: #FFF8EF;
+outline: none;
+margin-top: 526px;
+position: absolute;
+justify-content: center;
+}
+
+#textinput input[type="text"] {
+
+background-color: #FFF8EF; /* 배경색을 동일하게 */
+border: none; /* 윤곽선 제거 */
+outline: none; /* 포커스 시 윤곽선 제거 */
+
+}
+
+#imageinput{
+width: 100%;
+margin-top: 526px;
+position: absolute;
+justify-content: center;
+font-family: 'SokchoBadaDotum';
+color: black;
+}
+
+
+
+
+
+
+
+
+
+
+.downpart {
+  margin-top: -40px;
+  width: 100%;
+  position: relative;
+  height: 40px;
+}
+
+.downline {
+  width: 100%;
+  height: 1px;
+  background-color: #C2C2C2;
+  position: absolute;
+  
+  
+}
+.downpart svg {
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.downpart svg:nth-child(2) { top: 25px;left: 27px; cursor: pointer;}
+.downpart svg:nth-child(4) { top: 25px;left: 81px; cursor: pointer;}
+.downpart svg:nth-child(6) { top: 25px;left: 143px; cursor: pointer; }
+.downpart svg:nth-child(8) { top: 25px;left: 204px; cursor: pointer;}
+.downpart svg:nth-child(10) { top: 25px;left: 267px; cursor: pointer; }
+
+.gline {
+  position: absolute;
+  width: 1px;
+  height: 31.376px;
+  background-color: #C2C2C2;
+  top: 25px;
+  transform: translateY(-50%);
+}
+
+.gline-1 { left: 61px; }
+.gline-2 { left: 122px; }
+.gline-3 { left: 184px; }
+.gline-4 { left: 247px; }
+
+
+
+
+
+.textin {
+  
+  padding: 5px 10px; /* 입력 필드의 내외부 여백을 설정 */
+  font-size: 16px; /* 글꼴 크기 설정 */
+  outline: none; /* 포커스 시 나타나는 기본 외곽선을 제거 */
+}
+
