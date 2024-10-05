@@ -218,7 +218,27 @@ if (hamMenu) {
                     ctx.font = '15px SokchoBadaDotum';
                     ctx.fillStyle = lineColor;
                     ctx.fillText(text, x, y);
-                    
+                    // 서버로 데이터 전송
+                    fetch('/saveText', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            text: text,
+                            x: x,
+                            y: y,
+                            color: lineColor,
+                            font: '15px SokchoBadaDotum'
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Data saved:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error saving text:', error);
+                    });
                     isAddingText = false;
                     canvas.style.cursor = 'default';
                     textInput.value = ''; // 텍스트가 추가된 후 입력 필드 초기화

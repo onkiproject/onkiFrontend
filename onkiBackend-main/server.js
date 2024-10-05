@@ -37,3 +37,30 @@ mongoclient.connect(url)
     app.get('/newdiary1', function(req, res){
         res.render('newdiary1.ejs')
     })
+
+    app.get('/index', function(req, res) {
+        res.render('index.ejs');
+    });
+
+    app.post('/saveText', (req, res) => {
+        const { text, x, y, color, font } = req.body;
+    
+        // MongoDB에 텍스트 데이터 저장
+        mydb.collection('texts').insertOne({
+            text: text,
+            x: x,
+            y: y,
+            color: color,
+            font: font,
+            date: new Date()
+        })
+        .then(result => {
+            console.log('Text data saved:', result);
+            res.json({ success: true, message: 'Text data saved successfully' });
+        })
+        .catch(err => {
+            console.log('Error saving text data:', err.message);
+            res.status(500).json({ success: false, message: 'Failed to save text data' });
+        });
+    });
+    
