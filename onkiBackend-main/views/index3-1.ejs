@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>main</title>
   
-    <link rel="stylesheet" href="../public/styles/dmain3-1.css">
+    <link rel="stylesheet" href="../styles/dmain3-1.css">
     
 </head>
 <body>
@@ -160,6 +160,48 @@
     function toEditDiary(){
       window.location.href ="../roots/editDiary.html";
   }
+
+
+    //저장된 다이어리 정보 띄우기
+
+    // 페이지가 로드될 때 저장된 텍스트를 불러오는 함수
+    function loadTexts() {
+    fetch('/getTexts')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // 각 텍스트 객체를 순회하며 캔버스에 그리기
+                data.texts.forEach(item => {
+                    drawTextOnCanvas(item.text, item.x, item.y, item.color, item.font);
+                });
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(err => console.error('Error loading texts:', err));
+}
+
+    // 캔버스에 텍스트 그리기 함수
+    function drawTextOnCanvas(text, x, y, color, font) {
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.font = font;
+        ctx.fillStyle = color;
+        ctx.fillText(text, x, y);
+    }
+
+    // 페이지가 로드될 때 텍스트를 불러옴
+    window.onload = loadTexts;
+
+
+
+
+
+
+
+
+
+
 
     </script>
 

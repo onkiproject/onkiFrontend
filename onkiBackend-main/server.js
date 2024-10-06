@@ -2,6 +2,7 @@
 const express=require('express');
 const path = require('path');
 const app=express();
+const cors = require('cors');
 
 const ejs = require('ejs');
 
@@ -10,6 +11,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
+app.use(cors()); // CORS 설정
+app.use(express.json()); // JSON 파싱 설정
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,11 +45,14 @@ mongoclient.connect(url)
     app.get('/index', function(req, res) {
         res.render('index.ejs');
     });
+    app.get('/index3-1', function(req, res) {
+        res.render('index3-1.ejs');
+    });
 
     app.post('/saveText', (req, res) => {
         const { text, x, y, color, font } = req.body;
     
-        // MongoDB에 텍스트 데이터 저장
+         // MongoDB에 텍스트 데이터 저장
         mydb.collection('texts').insertOne({
             text: text,
             x: x,
@@ -63,4 +70,14 @@ mongoclient.connect(url)
             res.status(500).json({ success: false, message: 'Failed to save text data' });
         });
     });
-    
+    //다이어리에 있는 텍스트 띄우기 위한
+    app.get('/getTexts', (req, res) => {
+        mydb.collection('texts').find().toArray()
+        .then(results => {
+            res.json({ success: true, texts: results });
+        })
+        .catch(err => {
+            console.log('Error fetching text data:', err.message);
+            res.status(500).json({ success: false, message: 'Failed to fetch text data' });
+        });
+    });

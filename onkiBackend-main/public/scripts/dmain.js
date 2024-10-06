@@ -307,6 +307,37 @@ if (hamMenu) {
     });
 
 
+    //기존에 있던것들 띄우기
+
+    // 페이지가 로드될 때 저장된 텍스트를 불러오는 함수
+    function loadTexts() {
+        fetch('/getTexts')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 각 텍스트 객체를 순회하며 캔버스에 그리기
+                    data.texts.forEach(item => {
+                        drawTextOnCanvas(item.text, item.x, item.y, item.color, item.font);
+                    });
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch(err => console.error('Error loading texts:', err));
+    }
+    
+        // 캔버스에 텍스트 그리기 함수
+        function drawTextOnCanvas(text, x, y, color, font) {
+            const canvas = document.getElementById('drawingCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.font = font;
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+        }
+    
+        // 페이지가 로드될 때 텍스트를 불러옴
+        window.onload = loadTexts;
+    
 
 
 
@@ -324,3 +355,7 @@ if (hamMenu) {
   function toEditDiary(){
     window.location.href ="../roots/editDiary.html";
 }
+
+
+
+
