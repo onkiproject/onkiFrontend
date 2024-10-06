@@ -148,9 +148,9 @@
           });
                   
         
-        document.getElementById('diaryButton').addEventListener('click', function() {
-            window.location.href = 'index.ejs';
-        });
+          document.getElementById('diaryButton').addEventListener('click', function() {
+          window.location.href = '/index';  // /index 경로로 리다이렉트
+          });
         
         document.getElementById('changepf').addEventListener('click', function() {
             window.location.href = 'editProfile.html';
@@ -194,7 +194,31 @@
     window.onload = loadTexts;
 
 
-
+    // 페이지 로드 시 저장된 이미지 불러오기
+        function loadImages() {
+            fetch('/getImages')
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  const container = document.getElementById('imageContainer');
+                  data.images.forEach(imgInfo => {
+                    const img = document.createElement('img');
+                    img.src = imgInfo.path;
+                    img.style.position = 'absolute';
+                    img.style.left = `${imgInfo.x}px`;
+                    img.style.top = `${imgInfo.y}px`;
+                    img.style.width = `${imgInfo.width}px`;
+                    img.style.height = `${imgInfo.height}px`;
+                    img.style.objectFit = 'cover';
+                    container.appendChild(img);
+                  });
+                }
+              })
+              .catch(error => console.error('Error loading images:', error));
+          }
+          
+          // 페이지 로드 시 이미지 불러오기
+          window.addEventListener('load', loadImages);
 
 
 

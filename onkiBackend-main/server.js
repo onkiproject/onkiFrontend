@@ -5,7 +5,7 @@ const app=express();
 const cors = require('cors');
 
 const ejs = require('ejs');
-
+const multer = require('multer');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -34,7 +34,7 @@ mongoclient.connect(url)
         });
     }).catch(err => {
         console.log("MongoDB 연결 오류", err.message);
-    });
+   });
 
 
 
@@ -49,6 +49,10 @@ mongoclient.connect(url)
         res.render('index3-1.ejs');
     });
 
+
+    //다이어리
+
+    //다이어리 텍스트
     app.post('/saveText', (req, res) => {
         const { text, x, y, color, font } = req.body;
     
@@ -81,3 +85,65 @@ mongoclient.connect(url)
             res.status(500).json({ success: false, message: 'Failed to fetch text data' });
         });
     });
+
+    //다이어리 사진
+
+
+    let storage = multer.diskStorage({
+        destination: function(req, file, done){
+            done(null, './public/images')
+
+        },
+        filename: function(req, file, done){
+            done(null,file.originalname)
+        }
+    });
+    const upload = multer({ 
+        storage: storage,
+        
+      });
+
+
+
+      app.post('/uploadImage', upload.single('image'), (req, res) => {
+        if (!req.file) {
+          return res.status(400).json({ success: false, message: '파일이 업로드되지 않았습니다.' });
+        }
+      
+        // 이미지 정보를 MongoDB에 저장
+        const imageInfo = {
+          filename: req.file.filename,
+          originalname: req.file.originalname,
+          path: `/images/${req.file.filename}`, // 클라이언트에서 접근할 경로
+          x: req.body.x,
+          y: req.body.y,
+          width: req.body.width,
+          height: req.body.height
+        };
+      
+        mydb.collection('images').insertOne(imageInfo)
+          .then(result => {
+            res.json({ 
+              success: true, 
+              id: result.insertedId,
+              imageUrl: imageInfo.path
+            });
+          })
+          .catch(err => {
+            console.error('Error saving image info to database:', err);
+            res.status(500).json({ success: false, message: '이미지 정보 저장 중 오류가 발생했습니다.' });
+          });
+      });
+      app.get('/getImages', (req, res) => {
+        mydb.collection('images').find().toArray()
+          .then(images => {
+            res.json({ success: true, images });
+          })
+          .catch(err => {
+            console.error('Error fetching images:', err);
+            res.status(500).json({ success: false, message: '이미지를 불러오는 중 오류가 발생했습니다.' });
+          });
+      });
+      
+      // 정적 파일 제공
+      app.use('/images', express.static('public/images'));

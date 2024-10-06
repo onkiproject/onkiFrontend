@@ -282,30 +282,42 @@ if (hamMenu) {
             fileInput.onchange = function(event) {
                 const file = event.target.files[0];
                 if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.position = 'absolute';
-                        img.style.left = `${clickX}px`;
-                        img.style.top = `${clickY}px`;
-                        img.style.width = '82px';
-                        img.style.height = '86px';
-                        img.style.objectFit = 'cover';
-                        container.appendChild(img);
-                        callCount++;  // 이미지 추가 시 호출 카운터 증가
-                        imageinput.style.display='none';
-                    }
-                    reader.readAsDataURL(file);
-                }
-            }
+                  const formData = new FormData();
+                  formData.append('image', file);
+                  formData.append('x', clickX);
+                  formData.append('y', clickY);
+                  formData.append('width', 82);
+                  formData.append('height', 86);
             
-            container.addEventListener('click', addImage);
-        
-
-        
-    });
-
+                  fetch('/uploadImage', {
+                    method: 'POST',
+                    body: formData
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.success) {
+                      const img = document.createElement('img');
+                      img.src = data.imageUrl;
+                      img.style.position = 'absolute';
+                      img.style.left = `${clickX}px`;
+                      img.style.top = `${clickY}px`;
+                      img.style.width = '82px';
+                      img.style.height = '86px';
+                      img.style.objectFit = 'cover';
+                      container.appendChild(img);
+                      
+                      callCount++;
+                      imageinput.style.display = 'none';
+                    } else {
+                      console.error('이미지 업로드 실패:', data.message);
+                    }
+                  })
+                  .catch(error => console.error('Error:', error));
+                }
+              }
+            
+              container.addEventListener('click', addImage);
+            });
 
     //기존에 있던것들 띄우기
 
@@ -334,10 +346,37 @@ if (hamMenu) {
             ctx.fillStyle = color;
             ctx.fillText(text, x, y);
         }
-    
+
         // 페이지가 로드될 때 텍스트를 불러옴
         window.onload = loadTexts;
-    
+
+
+        // 페이지 로드 시 저장된 이미지 불러오기
+        function loadImages() {
+            fetch('/getImages')
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  const container = document.getElementById('imageContainer');
+                  data.images.forEach(imgInfo => {
+                    const img = document.createElement('img');
+                    img.src = imgInfo.path;
+                    img.style.position = 'absolute';
+                    img.style.left = `${imgInfo.x}px`;
+                    img.style.top = `${imgInfo.y}px`;
+                    img.style.width = `${imgInfo.width}px`;
+                    img.style.height = `${imgInfo.height}px`;
+                    img.style.objectFit = 'cover';
+                    container.appendChild(img);
+                  });
+                }
+              })
+              .catch(error => console.error('Error loading images:', error));
+          }
+          
+          // 페이지 로드 시 이미지 불러오기
+          window.addEventListener('load', loadImages);
+            
 
 
 
