@@ -49,6 +49,21 @@ mongoclient.connect(url)
         res.render('index3-1.ejs');
     });
 
+//입력된 일기장 이름 DB에 저장...
+app.post('/newdiary1', function(req, res){
+    const diary = {
+        title: req.body.diaryname,
+    };
+
+    mydb.collection('diaries').insertOne(diary, function(err, result){
+        if (err) {
+            return res.send("DB 저장 중 오류: " + err.message);
+        }
+
+        console.log("새로운 일기 저장 완료: " + result.insertedID);
+        res.redirect('/newdiary1');
+    });
+});
 
     //다이어리
 
