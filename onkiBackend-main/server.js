@@ -49,6 +49,34 @@ mongoclient.connect(url)
         res.render('index3-1.ejs');
     });
 
+    app.get('/newdiary1', function(req, res){
+        res.render('newdiary1.ejs')
+    });
+    app.get('/newdiary2', function(req, res){
+        res.render('newdiary2.ejs')
+    });
+    app.get('/newdiary3', function(req, res){
+        res.render('newdiary3.ejs')
+    });
+    app.get('/newdiary3', function(req, res){
+        res.render('newdiary3.ejs')
+    });
+    app.get('/newdiary4', function(req, res){
+        res.render('newdiary4.ejs')
+    });
+    app.get('/newdiary5', function(req, res){
+        res.render('newdiary5.ejs')
+    });
+    app.get('/newdiary6', function(req, res){
+        res.render('newdiary6.ejs')
+    });
+    app.get('/newdiary7', function(req, res){
+        res.render('newdiary7.ejs')
+    });
+
+
+
+
 //입력된 일기장 이름 DB에 저장...
 app.post('/newdiary1', function(req, res){
     const diary = {
