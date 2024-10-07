@@ -172,7 +172,7 @@
             if (data.success) {
                 // 각 텍스트 객체를 순회하며 캔버스에 그리기
                 data.texts.forEach(item => {
-                    drawTextOnCanvas(item.text, item.x, item.y, item.color, item.font);
+                    drawTextOnCanvas(item.text, item.textx, item.texty, item.textcolor, item.textfont);
                 });
             } else {
                 console.error(data.message);
@@ -182,12 +182,12 @@
 }
 
     // 캔버스에 텍스트 그리기 함수
-    function drawTextOnCanvas(text, x, y, color, font) {
+    function drawTextOnCanvas(text, textx, texty, textcolor, textfont) {
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
-        ctx.font = font;
-        ctx.fillStyle = color;
-        ctx.fillText(text, x, y);
+        ctx.font = textfont;
+        ctx.fillStyle = textcolor;
+        ctx.fillText(text, textx, texty);
     }
 
     // 페이지가 로드될 때 텍스트를 불러옴

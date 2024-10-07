@@ -72,13 +72,13 @@ app.post('/newdiary1', function(req, res){
         const { text, x, y, color, font } = req.body;
     
          // MongoDB에 텍스트 데이터 저장
-        mydb.collection('texts').insertOne({
+        mydb.collection('diaries').insertOne({
             text: text,
-            x: x,
-            y: y,
-            color: color,
-            font: font,
-            date: new Date()
+            textx: x,
+            texty: y,
+            textcolor: color,
+            textfont: font,
+            //date: new Date()
         })
         .then(result => {
             console.log('Text data saved:', result);
@@ -91,7 +91,7 @@ app.post('/newdiary1', function(req, res){
     });
     //다이어리에 있는 텍스트 띄우기 위한
     app.get('/getTexts', (req, res) => {
-        mydb.collection('texts').find().toArray()
+        mydb.collection('diaries').find().toArray()
         .then(results => {
             res.json({ success: true, texts: results });
         })
@@ -136,7 +136,7 @@ app.post('/newdiary1', function(req, res){
           height: req.body.height
         };
       
-        mydb.collection('images').insertOne(imageInfo)
+        mydb.collection('diaries').insertOne(imageInfo)
           .then(result => {
             res.json({ 
               success: true, 
@@ -150,7 +150,7 @@ app.post('/newdiary1', function(req, res){
           });
       });
       app.get('/getImages', (req, res) => {
-        mydb.collection('images').find().toArray()
+        mydb.collection('diaries').find().toArray()
           .then(images => {
             res.json({ success: true, images });
           })
