@@ -49,12 +49,44 @@ mongoclient.connect(url)
         res.render('index3-1.ejs');
     });
 
+    //newdiary1
     app.get('/newdiary1', function(req, res){
         res.render('newdiary1.ejs')
     });
+    //입력된 일기장 이름 DB에 저장...
+    app.post('/newdiary1', function(req, res){
+        const diary = {
+            title: req.body.diaryname,
+        };
+
+        mydb.collection('diaries').insertOne(diary, function(err, result){
+            if (err) {
+                return res.send("DB 저장 중 오류: " + err.message);
+            }
+
+            console.log("새로운 일기 저장 완료: " + result.insertedID);
+            res.redirect('/newdiary1');
+        });
+    });
+
+
+    //newdiary2
     app.get('/newdiary2', function(req, res){
         res.render('newdiary2.ejs')
     });
+    app.post('/newdiary2', function(req, res) {
+        const diaryName = req.body.diaryname; // 'diaryname'은 input의 name 속성과 일치
+        
+        // 여기서 필요한 처리를 수행합니다
+        // 예: 데이터베이스에 저장
+        
+        res.render('newdiary2.ejs', { diaryName: diaryName });
+        // 또는 다른 페이지로 리다이렉트
+        // res.redirect('/next-page');
+    });
+
+
+    
     app.get('/newdiary3', function(req, res){
         res.render('newdiary3.ejs')
     });
@@ -77,21 +109,6 @@ mongoclient.connect(url)
 
 
 
-//입력된 일기장 이름 DB에 저장...
-app.post('/newdiary1', function(req, res){
-    const diary = {
-        title: req.body.diaryname,
-    };
-
-    mydb.collection('diaries').insertOne(diary, function(err, result){
-        if (err) {
-            return res.send("DB 저장 중 오류: " + err.message);
-        }
-
-        console.log("새로운 일기 저장 완료: " + result.insertedID);
-        res.redirect('/newdiary1');
-    });
-});
 
     //다이어리
 

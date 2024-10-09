@@ -1,16 +1,15 @@
-const button = document.querySelector('.next');
+
+
+const form = document.querySelector('form');
 const input = document.querySelector('.diarynameinput');
-  
-function handler(){
-    if (input.value.trim() === ""){
-    alert("일기장의 이름을 입력해주세요!");
-    }else{
-        //form.action = '/newdiary2';
-   }
-    document.getElementById('next').addEventListener('click', function() {
-    window.location.href = 'newdiary2';  // /index 경로로 리다이렉트
-     });
+const nextButton = document.getElementById('next').querySelector('button');
 
-
-}
-button.addEventListener('click', handler);      
+nextButton.addEventListener('click', function(event) {
+    event.preventDefault(); // 기본 제출 동작 방지
+    
+    if (input.value.trim() === "") {
+        alert("일기장의 이름을 입력해주세요!");
+    } else {
+        form.submit(); // 폼 제출
+    }
+});
