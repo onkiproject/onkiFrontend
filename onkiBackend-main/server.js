@@ -1,14 +1,17 @@
 // 필요한 모듈 불러오기
 const express=require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const app=express();
 const cors = require('cors');
 
+app.use(bodyParser.json());
+
+// URL-encoded 형식의 데이터를 파싱
+app.use(bodyParser.urlencoded({ extended: true }));
 const ejs = require('ejs');
 const multer = require('multer');
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
 app.use(cors()); // CORS 설정
@@ -36,7 +39,20 @@ mongoclient.connect(url)
         console.log("MongoDB 연결 오류", err.message);
    });
 
+//사진 관련
+let storage = multer.diskStorage({
+    destination: function(req, file, done){
+        done(null, './public/images')
 
+    },
+    filename: function(req, file, done){
+        done(null,file.originalname)
+    }
+});
+const upload = multer({ 
+    storage: storage,
+    
+  });
 
     app.get('/newdiary1', function(req, res){
         res.render('newdiary1.ejs')
@@ -58,18 +74,21 @@ mongoclient.connect(url)
         const diary = {
             title: req.body.diaryname,
         };
-        
+    
         mydb.collection('diaries').insertOne(diary, function(err, result) {
             if (err) {
                 console.error("DB 저장 중 오류:", err);
                 return res.status(500).send("DB 저장 중 오류: " + err.message);
             }
             
-            console.log("새로운 일기 저장 완료:", result.insertedId);
-            res.redirect('/newdiary2');  // newdiary1이 아닌 newdiary2로 리다이렉트
+            console.log("새로운 일기 저장 완료: " + result.insertedId);
+            
+            // ID를 쿼리 파라미터로 추가하여 리다이렉트
+            return res.redirect(`/newdiary2?diaryId=${result.insertedId}`);  
         });
     });
-
+    
+    
 
     //newdiary2
     app.get('/newdiary2', function(req, res){
@@ -85,7 +104,43 @@ mongoclient.connect(url)
         // 또는 다른 페이지로 리다이렉트
         // res.redirect('/next-page');
     });
-    
+    // 기존 문서에 이미지 추가
+app.post('/addImage/:id', upload.single('image'), (req, res) => {
+    const diaryId = req.params.id; // URL 매개변수에서 일기장 ID 가져오기
+
+    if (!req.file) {
+        return res.status(400).json({ success: false, message: '파일이 업로드되지 않았습니다.' });
+    }
+
+    const imageInfo = {
+        filename: req.file.filename,
+        originalname: req.file.originalname,
+        path: `/images/${req.file.filename}`, // 클라이언트에서 접근할 경로
+    };
+
+    // 해당 일기장 문서에 새로운 이미지 추가
+    mydb.collection('diaries').updateOne(
+        { _id: new ObjId(diaryId) }, // 해당 ID로 문서 찾기
+        { $push: { images: imageInfo } } // images 배열에 추가
+    )
+    .then(result => {
+        res.json({ 
+            success: true, 
+            message: '이미지가 성공적으로 추가되었습니다.',
+            imageUrl: imageInfo.path
+        });
+    })
+    .catch(err => {
+        console.error('Error adding image to diary:', err);
+        res.status(500).json({ success: false, message: '이미지 추가 중 오류가 발생했습니다.' });
+    });
+});
+
+
+
+
+
+
     app.get('/newdiary3', function(req, res){
         res.render('newdiary3.ejs')
     });
@@ -148,19 +203,7 @@ mongoclient.connect(url)
     //다이어리 사진
 
 
-    let storage = multer.diskStorage({
-        destination: function(req, file, done){
-            done(null, './public/images')
 
-        },
-        filename: function(req, file, done){
-            done(null,file.originalname)
-        }
-    });
-    const upload = multer({ 
-        storage: storage,
-        
-      });
 
 
 
