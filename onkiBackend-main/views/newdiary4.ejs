@@ -19,7 +19,12 @@
             <img class="celebrate" src="../assets/celebrate.png" />
             <button class = "newprofile" onClick="location.href='newdiary5.html'">프로필 생성하기</button>
 
-        <script src="../scripts/newdiary4.js" defer></script>
+            <script>
+                // JavaScript 코드 없이 버튼 클릭 이벤트 처리
+                document.querySelector('.newprofile').addEventListener('click', function() {
+                    window.location.href = '/newdiary5';
+                });
+            </script>
 
         </main>
     </body>

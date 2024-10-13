@@ -19,6 +19,6 @@ button.addEventListener('click', () => {
     if (colorInput.value.trim() === "") {
         alert("색상을 선택해주세요!");
     } else {
-        location.href = 'newdiary7.html';
+        window.location.href = '/newdiary7';
     }
 });
