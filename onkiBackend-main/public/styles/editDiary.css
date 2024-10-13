@@ -1,0 +1,252 @@
+@font-face {
+    font-family: 'SokchoBadaDotum';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaDotum.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'suit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+  font-family: 'suit-black';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Black.woff2') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+body {
+  width: 100%;
+  max-width: 100vw; /* 화면 너비를 넘지 않도록 설정 */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #FFF8EF;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.light,
+.light * {
+  box-sizing: border-box;
+}
+.light {
+  background: #fff8ef;
+  height: 852px;
+  position: relative;
+  overflow: hidden;
+}
+#frame-6 {
+  width: 40px;
+  height: 27px;
+  position: absolute;
+  left: 30px;
+  top: 73px;
+  overflow: hidden;
+}
+#div {
+  color: black;
+  text-align: left;
+  font-family: "suit";
+
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: 10px;
+  top: -4px;
+}
+#editName {
+  letter-spacing: -0.03em;
+  color: #000000;
+  text-align: left;
+  font-family: "suit";
+
+  font-size: 16px;
+  position: absolute;
+  left: 33px;
+  top: 419px;
+
+  transition: font-family 0.1s ease-in;
+
+  cursor:pointer;
+}
+#editName:hover{
+  font-family: "suit";
+}
+#div3 {
+  color: #000000;
+  text-align: left;
+  font-family: "suit";
+
+  font-size: 16px;
+  letter-spacing: -0.03em;
+  position: absolute; 
+  left: 33px;
+  top: 471px;
+
+  transition: font-family 0.1s ease-in;
+  cursor:pointer;
+}
+#div3:hover{
+  font-family: "suit";
+}
+#line-1 {
+  margin-top: -1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-width: 1px 0 0 0;
+  width: 83.7%;
+  height: 0px;
+  position: absolute;
+  left: 32px;
+  top: 455px;
+  transform-origin: 0 0;
+  transform: rotate(0deg) scale(1, 1);
+}
+#line-2 {
+  margin-top: -1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-width: 1px 0 0 0;
+  width: 83.7%;
+  height: 0px;
+  position: absolute;
+  left: 32px;
+  top: 507px;
+  transform-origin: 0 0;
+  transform: rotate(0deg) scale(1, 1);
+}
+#div4 {
+  color: #000000;
+  text-align: left;
+  font-family: "suit", sans-serif;
+
+  font-size: 16px;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: 33px;
+  top: 523px;
+
+  transition: font-family 0.1s ease-in;
+  cursor:pointer;
+}
+#div4:hover{
+  font-family: "suit";
+}
+#group-28 {
+  position: absolute;
+  inset: 0;
+}
+#picChange {
+  width: 122px;
+  height: 122px;
+  position: absolute;
+  left: calc(50% - 60.5px);
+  top: 189px;
+  object-fit: cover; /* 이미지가 찌그러지지 않고, 비율에 맞게 잘리도록 설정 */
+}
+#profilePic {
+  width: 122px;
+  height: 122px;
+  position: absolute;
+  left: calc(50% - 60.5px);
+  top: 189px;
+  border-radius: 50%;
+  object-fit: cover; /* 이미지가 찌그러지지 않고, 비율에 맞게 잘리도록 설정 */
+}
+#diaryName {
+  color: #000000;
+  text-align: center;
+  font-family: 'SokchoBadaDotum';
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  position: absolute;
+  left: calc(50% - 47px);
+  top: 38%;
+}
+#diaryDate {
+  color: #a2a2a2;
+  text-align: center;
+  font-family: "suit", sans-serif;
+
+  font-size: 13px;
+  letter-spacing: -0.03em;
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#div7 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "suit", sans-serif;
+
+  font-size: 13px;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  text-decoration: underline;
+  position: absolute;
+  left: 180px;
+  top: 234px;
+}
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  padding-top: 60px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  font-family:"suit";
+  background-color: #fefefe;
+  margin: 5% auto; 
+  padding: 20px;
+  width: 40%; 
+  border-radius: 10px;
+}
+
+#newName{
+  width: 97%;
+
+}
+#ok{
+  display: block;
+  color: white;
+  background-color: #229C5A;
+  font-family: "suit";
+  border: 0;
+  padding: 7px 20px;
+  margin-top: 10px;
+  border-radius: 30px;
+  transition: background-color 0.1s ease-in;
+}
+
+#ok:hover{
+  background-color: #197141;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: medium;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
