@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'MapoBackpacking';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoBackpackingA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'suit';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'suit-black';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Black.woff2') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+.mapoFontTxt1 {
+    color: #000000;
+    font-size: 13px;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+}
+.mapoFontTxt2 {
+    color: var(--blue, #4535ff);
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.light,
+.light * {
+    box-sizing: border-box;
+}
+.light {
+    background: #fff8ef;
+    height: 852px;
+    position: relative;
+    overflow: hidden;
+}
+.group-4 {
+    position: absolute;
+    inset: 0;
+}
+.logo {
+    width: 177px;
+    height: 77px;
+    position: absolute;
+    left: calc(50% - 88.5px);
+    top: 34%;
+}
+.rectangle-2 {
+    background: var(--green, #229c5a);
+    border-radius: 10px;
+    width: 186px;
+    height: 38px;
+    position: absolute;
+    left: calc(50% - 92.5px);
+    top: 509px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1),
+    0px 7px 7px 0px rgba(0, 0, 0, 0.09), 0px 16px 9px 0px rgba(0, 0, 0, 0.05),
+    0px 28px 11px 0px rgba(0, 0, 0, 0.01), 0px 44px 12px 0px rgba(0, 0, 0, 0);
+    transition: background-color 0.1s ease-in;
+}
+.rectangle-2:hover{
+    background-color: #197141;
+}
+.div {
+    color: #ffffff;
+    text-align: left;
+    font-family: "suit", sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    position: absolute;
+    left: calc(50% - 24.5px);
+    top: 520px;
+}
+.roomNumInput {
+    font-family: "suit", sans-serif;
+    font-size: 12px;
+    padding-left: 47px;
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 10px;
+    border: 3px;
+    width: 294px;
+    height: 40px;
+    position: absolute;
+    left: calc(50% - 146.5px);
+    top: 401px;
+}
+.pwInput {
+    font-family: "suit", sans-serif;
+    font-size: 12px;
+    padding-left: 47px;
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 10px;
+    border: 3px;
+    width: 294px;
+    height: 40px;
+    position: absolute;
+    left: calc(50% - 146.5px);
+    top: 450px;
+}
+.div2 {
+    text-align: center;
+    font-family: "MapoBackpacking", sans-serif;
+    font-size: 13px;
+    line-height: undefined;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    position: absolute;
+    left: calc(50% - 57.5px);
+    top: 570px;
+}
+.key {
+    height: auto;
+    position: absolute;
+    left: calc(50% - 146.5px + 12px);
+    top: 458px;
+    overflow: visible;
+}
+.door {
+    height: auto;
+    position: absolute;
+    left: calc(50% - 146.5px + 12px);
+    top: 409px;
+    overflow: visible;
+}
+::placeholder {
+    color: #848484;
+    text-align: left;
+    font-family: "suit", sans-serif;
+    font-size: 12px;
+}
