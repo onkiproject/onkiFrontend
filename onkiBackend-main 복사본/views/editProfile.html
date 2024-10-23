@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/editProfile.css">
+    <title>editProfile</title>
+</head>
+<body>
+    <div class="light">
+        <div id="frame-6" style="cursor: pointer;">
+          <div id="div">&lt;</div>
+        </div>
+        <div id="div2">내 컬러 바꾸기</div>
+        <div id="editName">닉네임 수정하기</div>
+        <div id="line-1"></div>
+        <div id="line-2"></div>
+        <div id="div4">메인화면으로 이동하기</div>
+        <img id="profilePic" src="../images/profileEdit.png"></img>
+        <img id="picChange" src="../images/picChange.svg" style="cursor:pointer;"></img>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" />
+        <div id="myName">냥녜</div>
+        <div id="div6">고오양이🐈</div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>새 이름을 입력해 주세요</p>
+            <input id="newName"/>
+            <button id="ok" onclick="ok()">저장</button>
+        </div>
+    </div>
+
+    <script>
+        function ok(){
+                const myName = document.getElementById('myName');
+                const newName = document.getElementById('newName').value;
+
+                myName.textContent = newName;
+                alert("이름이 변경되었습니다.")
+            }
+
+        const picChange = document.getElementById('picChange');
+        const fileInput = document.getElementById('fileInput');
+        const profilePic = document.getElementById('profilePic')
+
+        picChange.onclick = function() {
+            fileInput.click(); // 파일 선택 다이얼로그 열기
+        };
+
+        fileInput.onchange = function(event) {
+            const files = event.target.files;
+            profilePic.innerHTML = ''; // 기존 갤러리 초기화
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePic.src = e.target.result;
+                        profilePic.style.borderRadius = '50%';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        };
+
+        var modal = document.getElementById("myModal");
+        var editName = document.getElementById("editName");
+        var close = document.getElementsByClassName("close")[0];
+
+        editName.onclick = function() {
+        modal.style.display = "block";
+        }
+
+        close.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        }
+
+        document.getElementById('frame-6').addEventListener('click', function() {
+            window.location.href = 'index3-1.html';
+        });
+
+        
+      </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css");
+
+@font-face {
+    font-family: 'Friem-Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Friem Regular'), url('../assets/friem-regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'MapoBackpacking-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoBackpackingA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'LaundryGothicOtf-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+body {
+  width: 100%;
+  max-width: 100vw; /* 화면 너비를 넘지 않도록 설정 */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #FFF8EF;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+
+
+
+.light,
+.light * {
+  box-sizing: border-box;
+}
+.light {
+  background: var(--background, #fff8ef);
+  height: 932px;
+  width:430px;
+  position: relative;
+  overflow: hidden;
+}
+
+img.onki {
+  position: absolute; 
+  left: 40px;
+  top: 68px;       
+  width: 62px;       
+  height: auto;      
+  z-index: 10;       
+}
+
+.diaryname {
+  text-align: left;
+  font-family: "-", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  position: absolute;
+  left: 55px;
+  top: 325px;
+}
+
+.diaryname1, .diaryname2, .diaryname3 {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.diaryname1 {
+  color: #000000;
+}
+
+.diaryname2 {
+  left: 600px;
+  color: var(--pink, #ff238d);
+}
+
+.diaryname3 {
+  color: #000000;
+}
+
+.diarynameinput{
+  position: absolute;
+  top: 401px;
+  left: 50px;
+  width: 294px;
+  height: 40px;
+  border-radius: 10px;
+  border: 0;
+  background: #ECE9E4;    
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.09), 0px 1px 1px 0px rgba(0, 0, 0, 0.10);
+  padding-left: 10px;
+}
+
+.input[placeholder="일기장의 이름을 적어주세요"]{
+  color: #848484;
+  text-align: left;
+  font-family: "SuitVariable-Medium", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.next{
+  font-family: 'suit';
+  font-weight: 800;
+  position: absolute;
+  top: 455px;
+  left: 302px;
+  width: 43px;
+  height: 33px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--Green, #229C5A);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10);
+  color: white;
+}
+
+/* @media screen and (max-width: 430px) {
+  .diaryname {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 350 / 228;
+  }
+} */
