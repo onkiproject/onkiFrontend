@@ -209,26 +209,74 @@ const upload = multer({
 
 
 
-    app.get('/newdiary5', function(req, res){
-        res.render('newdiary5.ejs')
+    app.get('/newdiary5', function(req, res) {
+        const diaryId = req.params.diaryId;
+        if (!diaryId) {
+            return res.status(400).send("diaryId가 필요합니다.");
+        }
+        res.render('newdiary5.ejs', { diaryId: diaryId });
     });
     const Nickname = require('./modules/User');
-    app.post('/save-nickname', async (req, res) => {
-        const { nickname } = req.body;
-    
-        if (!nickname) {
-            return res.status(400).send('닉네임을 입력해주세요!');
-        }
-    
+
+    app.post('/save-nickname/:diaryId', async (req, res) => {
+        console.log('닉네임 저장 요청 받음:', req.params.diaryId, req.body.nickname);
+        
         try {
-            const newNickname = new Nickname({ nickname });
-            await newNickname.save();
-            res.status(200).send('닉네임이 성공적으로 저장되었습니다!');
+            const diaryId = req.params.diaryId;
+            const nickname = req.body.nickname;
+    
+            // diaryId 유효성 검사
+            if (!ObjectId.isValid(diaryId)) {
+                console.error('Invalid diaryId:', diaryId);
+                return res.status(400).json({
+                    success: false,
+                    message: '유효하지 않은 일기장 ID입니다.'
+                });
+            }
+    
+            // nickname 유효성 검사
+            if (!nickname) {
+                return res.status(400).json({
+                    success: false,
+                    message: '닉네임이 필요합니다.'
+                });
+            }
+    
+            // MongoDB에 닉네임 업데이트
+            const result = await mydb.collection('diaries').updateOne(
+                { _id: new ObjectId(diaryId) },
+                { 
+                    $set: { 
+                        nickname: nickname,
+                        updatedAt: new Date()
+                    } 
+                }
+            );
+    
+            console.log('Database update result:', result);
+    
+            if (result.matchedCount === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: '해당 일기장을 찾을 수 없습니다.'
+                });
+            }
+    
+            res.json({
+                success: true,
+                message: '닉네임이 성공적으로 저장되었습니다.',
+                diaryId: diaryId
+            });
+    
         } catch (error) {
-            res.status(500).send('서버 오류가 발생했습니다.');
+            console.error('Server error:', error);
+            res.status(500).json({
+                success: false,
+                message: '서버 오류가 발생했습니다.',
+                error: error.message
+            });
         }
     });
-    
 
 
 
