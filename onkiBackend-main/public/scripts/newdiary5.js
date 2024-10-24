@@ -2,9 +2,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const nicknameInput = document.querySelector('.nicknameinput');
     const nextButton = document.querySelector('.next');
     
-    // URL에서 diaryId 가져오기
+    // URL에서 diaryId 가져오기 - URLSearchParams 사용
     const urlParams = new URLSearchParams(window.location.search);
     const diaryId = urlParams.get('diaryId');
+    
+    // diaryId가 없는 경우 처리
+    if (!diaryId) {
+        console.error('diaryId not found in URL');
+        alert('일기장 정보를 찾을 수 없습니다.');
+        return;
+    }
 
     nextButton.addEventListener('click', async function(event) {
         event.preventDefault();
@@ -24,16 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ nickname })
             });
 
-            if (response.ok) {
-                const result = await response.json();
-                if (result.success) {
-                    window.location.href = '/newdiary6';
-                } else {
-                    alert(result.message || '닉네임 저장 중 오류가 발생했습니다.');
-                }
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                // 성공 시 다음 페이지로 이동 - diaryId를 쿼리 파라미터로 포함
+                window.location.href = `/newdiary6?diaryId=${diaryId}`;
             } else {
-                const errorData = await response.json();
-                alert(errorData.message || '서버 오류가 발생했습니다.');
+                alert(result.message || '닉네임 저장 중 오류가 발생했습니다.');
             }
         } catch (error) {
             console.error('Error:', error);

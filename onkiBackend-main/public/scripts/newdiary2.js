@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 const result = await response.json();
                 if (result.success) {
-                    window.location.href = '/newdiary3';
+                    window.location.href = `/newdiary3/${diaryId}`;
                 } else {
                     alert(result.message || '이미지 업로드 중 오류가 발생했습니다.');
                 }

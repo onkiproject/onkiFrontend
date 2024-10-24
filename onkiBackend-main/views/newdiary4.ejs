@@ -18,7 +18,7 @@
             <div class="complete">일기장 생성이 완료되었어요!</div>
             <img class="celebrate" src="../assets/celebrate.png" />
             <button class = "newprofile" onClick="location.href='newdiary5.html'">프로필 생성하기</button>
-
+            <input type="hidden" id="diaryId" value="<%= diaryId %>">
             <script>
                 // JavaScript 코드 없이 버튼 클릭 이벤트 처리
                 document.querySelector('.newprofile').addEventListener('click', function() {

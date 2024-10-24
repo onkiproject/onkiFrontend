@@ -166,36 +166,72 @@ const upload = multer({
     });
 
 
-
-    app.get('/newdiary3', function(req, res){
-        res.render('newdiary3.ejs')
+    app.get('/newdiary3/:diaryId', function(req, res) {
+        const diaryId = req.params.diaryId;  // req.params를 사용하여 diaryId 가져옴
+    
+        if (!diaryId) {
+            return res.status(400).send("diaryId가 필요합니다.");
+        }
+        console.log('Current diaryId:', diaryId);  // urlParams가 아닌 diaryId 출력
+    
+        // diaryId를 템플릿에 전달
+        res.render('newdiary3.ejs', { diaryId: diaryId });
     });
-
     const bcrypt = require('bcrypt');
-    const DiaryPassword = require('./modules/DiaryPassword'); // 경로가 맞는지 확인
-
     app.post('/save-password', async (req, res) => {
-        const { diaryId, password } = req.body; // diaryId를 포함하도록 수정
-      
-        // 비밀번호와 diaryId가 모두 제공되었는지 확인
-        if (!diaryId || !password) {
-          return res.status(400).send("다이어리 ID와 비밀번호를 모두 제공해야 합니다.");
-        }
-      
         try {
-          // 비밀번호 저장
-          const diaryPassword = new DiaryPassword({
-            diaryId: diaryId,
-            password: password
-          });
-      
-          await diaryPassword.save();
-          res.send("비밀번호가 성공적으로 저장되었습니다.");
+            const { diaryId, password } = req.body;
+            console.log('Received diaryId:', diaryId);  // 로그 추가
+            console.log('Received password:', password);  // 로그 추가
+    
+            if (!diaryId || !password) {
+                return res.status(400).json({
+                    success: false,
+                    message: "다이어리 ID와 비밀번호를 모두 제공해야 합니다."
+                });
+            }
+    
+            // ObjectId 유효성 검사
+            if (!ObjectId.isValid(diaryId)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "유효하지 않은 다이어리 ID입니다."
+                });
+            }
+    
+            const hashedPassword = await bcrypt.hash(password, 10);
+            console.log('Hashed password:', hashedPassword);  // 로그 추가
+    
+            const result = await mydb.collection('diaries').updateOne(
+                { _id: new ObjectId(diaryId) },
+                {
+                    $set: {
+                        password: hashedPassword,
+                        updatedAt: new Date()
+                    }
+                }
+            );
+    
+            if (result.matchedCount === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: '해당 일기장을 찾을 수 없습니다.'
+                });
+            }
+    
+            res.json({
+                success: true,
+                message: '비밀번호가 성공적으로 저장되었습니다.',
+                diaryId: diaryId
+            });
         } catch (error) {
-          console.error('비밀번호 저장 오류:', error);
-          res.status(500).send("비밀번호를 저장하는 중 오류가 발생했습니다.");
+            console.error('비밀번호 저장 오류:', error);
+            res.status(500).json({
+                success: false,
+                message: '비밀번호를 저장하는 중 오류가 발생했습니다.'
+            });
         }
-      });
+    });
     
 
 
@@ -203,21 +239,30 @@ const upload = multer({
 
 
 
-    app.get('/newdiary4', function(req, res){
-        res.render('newdiary4.ejs')
+    app.get('/newdiary4/:diaryId', function(req, res) {
+        const diaryId = req.params.diaryId;  // req.params를 사용하여 diaryId 가져옴
+        
+        if (!diaryId) {
+            return res.status(400).send("diaryId가 필요합니다.");
+        }
+        console.log('Current diaryId:', diaryId);  // diaryId 출력
+        
+        // diaryId를 템플릿에 전달
+        res.render('newdiary4.ejs', { diaryId: diaryId });
     });
-
 
 
     app.get('/newdiary5', function(req, res) {
         const diaryId = req.params.diaryId;
+        
         if (!diaryId) {
             return res.status(400).send("diaryId가 필요합니다.");
         }
+        
+        // diaryId를 템플릿에 전달
         res.render('newdiary5.ejs', { diaryId: diaryId });
     });
-    const Nickname = require('./modules/User');
-
+    
     app.post('/save-nickname/:diaryId', async (req, res) => {
         console.log('닉네임 저장 요청 받음:', req.params.diaryId, req.body.nickname);
         
@@ -225,7 +270,6 @@ const upload = multer({
             const diaryId = req.params.diaryId;
             const nickname = req.body.nickname;
     
-            // diaryId 유효성 검사
             if (!ObjectId.isValid(diaryId)) {
                 console.error('Invalid diaryId:', diaryId);
                 return res.status(400).json({
@@ -234,7 +278,6 @@ const upload = multer({
                 });
             }
     
-            // nickname 유효성 검사
             if (!nickname) {
                 return res.status(400).json({
                     success: false,
@@ -242,18 +285,15 @@ const upload = multer({
                 });
             }
     
-            // MongoDB에 닉네임 업데이트
             const result = await mydb.collection('diaries').updateOne(
                 { _id: new ObjectId(diaryId) },
-                { 
-                    $set: { 
+                {
+                    $set: {
                         nickname: nickname,
                         updatedAt: new Date()
-                    } 
+                    }
                 }
             );
-    
-            console.log('Database update result:', result);
     
             if (result.matchedCount === 0) {
                 return res.status(404).json({
@@ -267,7 +307,6 @@ const upload = multer({
                 message: '닉네임이 성공적으로 저장되었습니다.',
                 diaryId: diaryId
             });
-    
         } catch (error) {
             console.error('Server error:', error);
             res.status(500).json({
@@ -279,15 +318,21 @@ const upload = multer({
     });
 
 
-
-    app.get('/newdiary6', function(req, res){
-        res.render('newdiary6.ejs')
+    app.get('/newdiary6', function(req, res) {
+        const diaryId = req.query.diaryId;
+        if (!diaryId) {
+            return res.status(400).send("diaryId가 필요합니다.");
+        }
+        res.render('newdiary6.ejs', { diaryId: diaryId });
     });
-    app.get('/newdiary7', function(req, res){
-        res.render('newdiary7.ejs')
+    
+    app.get('/newdiary7', function(req, res) {
+        const diaryId = req.query.diaryId;
+        if (!diaryId) {
+            return res.status(400).send("diaryId가 필요합니다.");
+        }
+        res.render('newdiary7.ejs', { diaryId: diaryId });
     });
-
-
     app.get('/roomNum', (req, res) => {
         res.render('roomNum.ejs'); // roomNum.ejs 파일이 존재하는지 확인하세요.
     });
