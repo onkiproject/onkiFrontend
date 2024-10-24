@@ -21,8 +21,10 @@
             <input type="hidden" id="diaryId" value="<%= diaryId %>">
             <script>
                 // JavaScript 코드 없이 버튼 클릭 이벤트 처리
+
+                const diaryId = window.location.pathname.split('/').pop();
                 document.querySelector('.newprofile').addEventListener('click', function() {
-                    window.location.href = '/newdiary5';
+                    window.location.href = `/newdiary5/${diaryId}`;
                 });
             </script>
 

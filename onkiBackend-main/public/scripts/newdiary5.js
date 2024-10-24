@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextButton = document.querySelector('.next');
     
     // URL에서 diaryId 가져오기 - URLSearchParams 사용
-    const urlParams = new URLSearchParams(window.location.search);
-    const diaryId = urlParams.get('diaryId');
+    const diaryId = window.location.pathname.split('/').pop(); // 경로에서 diaryId 추출
     
     // diaryId가 없는 경우 처리
     if (!diaryId) {

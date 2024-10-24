@@ -251,17 +251,18 @@ const upload = multer({
         res.render('newdiary4.ejs', { diaryId: diaryId });
     });
 
-
-    app.get('/newdiary5', function(req, res) {
-        const diaryId = req.params.diaryId;
+    app.get('/newdiary5/:diaryId', function(req, res) {
+        const diaryId = req.params.diaryId;  // req.params를 사용하여 diaryId 가져옴
         
         if (!diaryId) {
             return res.status(400).send("diaryId가 필요합니다.");
         }
+        console.log('Current diaryId:', diaryId);  // diaryId 출력
         
         // diaryId를 템플릿에 전달
         res.render('newdiary5.ejs', { diaryId: diaryId });
     });
+
     
     app.post('/save-nickname/:diaryId', async (req, res) => {
         console.log('닉네임 저장 요청 받음:', req.params.diaryId, req.body.nickname);
