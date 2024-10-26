@@ -10,18 +10,21 @@
     <main>
         <div class="light">
         </div>
-
         <img src="../assets/onki.svg" class="onki"/>
-        
         <div class="color">
             <span class="color1">이 일기장에서 사용할<br /></span>
             <span class="color2">나만의 컬러</span><span class="color3">를 알려주세요!</span>
         </div>
-
+        
+        <!-- 닉네임을 hidden input으로 저장 -->
+        <input type="hidden" id="diaryId" value="<%= diaryId %>">
+        <input type="hidden" id="nickname" value="<%= nickname %>">
+        
         <!-- 숨겨진 input -->
+        <!-- HTML 부분 -->
         <input type="color" class="colorchoose" id="colorPicker" style="display: none;">
         <div class="color-display" id="colorDisplay">여기를 클릭해 색을 골라주세요</div>
-
+        
         <span class="friend">다른 친구들이 사용하고 있는 색</span>
         <button class="complete">완료</button>
     </main>

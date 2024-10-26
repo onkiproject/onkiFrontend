@@ -33,8 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
             
             if (response.ok && result.success) {
-                // 성공 시 다음 페이지로 이동 - diaryId를 쿼리 파라미터로 포함
-                window.location.href = `/newdiary6?diaryId=${diaryId}`;
+                // 성공 시 다음 페이지로 이동 - diaryId를 쿼리 파라미터로 포함// 이전 페이지에서
+                window.location.href = `/newdiary6?diaryId=${diaryId}&nickname=${encodeURIComponent(nickname)}`;
+                
             } else {
                 alert(result.message || '닉네임 저장 중 오류가 발생했습니다.');
             }

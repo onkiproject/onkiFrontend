@@ -13,7 +13,10 @@
             <img src="../images/onki_logo.svg" alt="logo" width="177px" height="77px">
         </div>
         <div class="rectangle-2" onclick="toSelectProfile()"></div>
-        <div class="div">일기 쓰기</div>
+        
+        <!-- 일기 쓰기 버튼 -->
+        <div class="div" onclick="checkDiaryAccess()">일기 쓰기</div>
+        
         <div class="div2">
             <span>
                 <span class="mapoFontTxt1">
@@ -23,6 +26,7 @@
                 <a class="mapoFontTxt2">일기장 만들기</a>
             </span>
         </div>
+        
         <img class="door" src="../images/door_front.svg"/>
         <input class="roomNumInput" type="text" placeholder="방 코드를 입력해주세요.">
         <img class="key" src="../images/key.svg"/>
@@ -30,9 +34,36 @@
     </div>
 
     <script>
-      function toSelectProfile(){
-        window.location.href ="selectProfile.html";
-      }
+        // function toSelectProfile(){
+        //     window.location.href = "selectProfile.html";
+        // }
+    
+        async function checkDiaryAccess() {
+            // 클래스 이름을 HTML에서 사용된 이름에 맞게 수정
+            const roomNum = document.querySelector('.roomNumInput').value; // 방 코드 입력
+            const password = document.querySelector('.pwInput').value; // 비밀번호 입력
+    
+            try {
+                const response = await fetch('/check-diary-access', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ roomNum, password }) // JSON 형태로 데이터 전송
+                });
+    
+                const result = await response.json();
+                if (result.success) {
+                    window.location.href = '/newdiary7'; // 성공 시 리다이렉트
+                } else {
+                    alert(result.message); // 실패 시 에러 메시지 표시
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('서버와의 통신에 실패했습니다.'); // 통신 오류 메시지
+            }
+        }
     </script>
+    
 </body>
 </html>

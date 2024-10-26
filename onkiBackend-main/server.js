@@ -321,19 +321,123 @@ const upload = multer({
 
     app.get('/newdiary6', function(req, res) {
         const diaryId = req.query.diaryId;
-        if (!diaryId) {
-            return res.status(400).send("diaryId가 필요합니다.");
+        const nickname = req.query.nickname; // URL에서 닉네임도 받아옴
+        
+        if (!diaryId || !nickname) {
+            return res.status(400).send("diaryId와 nickname이 필요합니다.");
         }
-        res.render('newdiary6.ejs', { diaryId: diaryId });
+        
+        res.render('newdiary6.ejs', { 
+            diaryId: diaryId,
+            nickname: nickname  // EJS 템플릿에 닉네임 전달
+        });
     });
     
-    app.get('/newdiary7', function(req, res) {
-        const diaryId = req.query.diaryId;
-        if (!diaryId) {
-            return res.status(400).send("diaryId가 필요합니다.");
+    app.post('/save-nickname/:diaryId', async (req, res) => {
+        console.log('서버 요청 받음:', {
+            params: req.params,
+            body: req.body,
+            diaryId: req.params.diaryId,
+            nickname: req.body.nickname,
+            color: req.body.color
+        });
+    
+        try {
+            const diaryId = req.params.diaryId;
+            const nickname = req.body.nickname;
+            const color = req.body.color;
+    
+            // 모든 필수 값이 있는지 확인
+            console.log('Received values:', { diaryId, nickname, color });
+    
+            const result = await mydb.collection('diaries').updateOne(
+                { _id: new ObjectId(diaryId) },
+                {
+                    $set: {
+                        nickname: nickname,
+                        color: color,
+                        updatedAt: new Date()
+                    }
+                }
+            );
+    
+            console.log('DB update result:', result);
+    
+            if (result.matchedCount === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: '해당 일기장을 찾을 수 없습니다.'
+                });
+            }
+    
+            res.json({
+                success: true,
+                message: '닉네임과 컬러가 성공적으로 저장되었습니다.',
+                diaryId: diaryId
+            });
+        } catch (error) {
+            console.error('Server error:', error);
+            res.status(500).json({
+                success: false,
+                message: '서버 오류가 발생했습니다.',
+                error: error.toString()
+            });
         }
-        res.render('newdiary7.ejs', { diaryId: diaryId });
     });
+    app.get('/newdiary7', function(req, res) {
+        res.render('newdiary7', { 
+            // 필요한 데이터가 있다면 여기에 추가
+        });
+    });
+    
+
+    async function verifyDiaryAccess(roomNum, password) {
+        // roomNum으로 해당 일기장을 찾습니다.
+        const diary = await mydb.collection('diaries').findOne({ title: roomNum });
+    
+        if (!diary) {
+            return false; // 일기장이 존재하지 않으면 false 반환
+        }
+    
+        // 비밀번호 검증
+        const isMatch = await bcrypt.compare(password, diary.password); // 해시된 비밀번호와 비교
+        return isMatch; // 비밀번호가 일치하면 true, 그렇지 않으면 false 반환
+    }
+    
+    app.post('/check-diary-access', async function(req, res) {
+        const { roomNum, password } = req.body;
+    
+        try {
+            // verifyDiaryAccess 함수 호출
+            const isValidAccess = await verifyDiaryAccess(roomNum, password);
+    
+            if (isValidAccess) {
+                res.json({ success: true }); // 성공 시
+            } else {
+                res.json({ success: false, message: '방 코드 또는 비밀번호가 올바르지 않습니다.' }); // 실패 시
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).json({
+                success: false,
+                message: '서버 오류가 발생했습니다.',
+                error: error.toString()
+            });
+        }
+    });
+    
+    
+    // 예시 검증 함수 - 실제 로직을 추가하세요.
+    async function verifyDiaryAccess(roomNum, password) {
+        // 데이터베이스에서 일치하는 방 코드와 비밀번호가 있는지 확인합니다.
+        // 예시로 간단히 true/false 반환
+        return roomNum === "testRoomNum" && password === "testPassword";
+    }
+
+
+
+
+
     app.get('/roomNum', (req, res) => {
         res.render('roomNum.ejs'); // roomNum.ejs 파일이 존재하는지 확인하세요.
     });
